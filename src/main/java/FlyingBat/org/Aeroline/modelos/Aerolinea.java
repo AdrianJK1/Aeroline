@@ -26,6 +26,12 @@ public class Aerolinea {
     @NotBlank(message = "El codigo IATA es requerido")
     private String codigoIata;
 
+    @NotBlank(message ="Numero de atencion al cliente requerido")
+    private  String numeroAtencion;
+
+    @NotBlank(message = "Tipo de vuelo requerido")
+    private  String tipoVuelo;
+
     @OneToMany(mappedBy = "aerolinea")
     private List<Vuelo> vuelos;
 
