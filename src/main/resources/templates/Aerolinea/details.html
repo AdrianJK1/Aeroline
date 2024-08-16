@@ -1,0 +1,34 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+    <h1 class="text-center">Detalles</h1>
+
+    <div>
+        <hr>
+        <dl class="row">
+            <dt class="col-sm-2">ID</dt>
+            <dd class="col-sm-10" th:text="${aerolinea.id}"></dd>
+
+            <dt class="col-sm-2">Nombre de Aerolinea</dt>
+            <dd class="col-sm-10" th:text="${aerolinea.nombre}"></dd>
+
+            <dt class="col-sm-2">Codigo AITA</dt>
+            <dd class="col-sm-10" th:text="${aerolinea.codigoIata}"></dd>
+
+            <dt class="col-sm-2">Numero de atencion al cliente</dt>
+            <dd class="col-sm-10" th:text="${aerolinea.numeroAtencion}"></dd>
+
+            <dt class="col-sm-2">Tipo de vuelo</dt>
+            <dd class="col-sm-10" th:text="${aerolinea.tipoVuelo}"></dd>
+        </dl>
+
+        <hr>
+        <a th:href="@{/aerolinea/edit/{id} (id = ${aerolinea.id}) }" class="btn btn-outline-info">Editar</a>
+        <a th:href="@{/aerolinea}">Regresar</a>
+    </div>
+
+
+</div>
