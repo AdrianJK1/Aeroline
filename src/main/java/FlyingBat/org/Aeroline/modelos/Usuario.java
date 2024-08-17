@@ -1,35 +1,35 @@
 package FlyingBat.org.Aeroline.modelos;
 
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "usuarios")
 public class Usuario {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     @NotBlank(message = "El nombre es requerido")
     private String nombre;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
+    @Email(message = "Debe proporcionar un correo electrónico válido")
     private String email;
 
+    @Column(nullable = false)
+    @NotBlank(message = "La contraseña es requerida")
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "rol_id")
+    @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
 }
