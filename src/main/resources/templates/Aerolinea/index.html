@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
@@ -15,7 +16,6 @@
         </script>
     </div>
 
-
     <!-- mostrar mensaje de error si se neceitarra -->
     <div th:if="${error != null}">
         <script>
@@ -26,9 +26,12 @@
             });
         </script>
     </div>
+
     <h1 class="text-center">Listado de Aerolineas¡¡</h1>
 
-    <a th:href="@{/aerolinea/create" class="btn btn-outline-primary">Crear nueva aerolinea</a>
+    <!-- Enlace corregido -->
+    <a th:href="@{/aerolineas/create}" class="btn btn-outline-primary">Crear nueva aerolinea</a>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -41,15 +44,15 @@
         </thead>
         <tbody>
         <tr th:each="item : ${aerolineas}">
-            <td th:text="item.id"></td>
-            <td th:text="item.nombre"></td>
-            <td th:text="item.codigoIata"></td>
-            <td th:text="item.numeroAtencion"></td>
-            <td th:text="item.tipoVuelo"></td>
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.nombre}"></td>
+            <td th:text="${item.codigoIata}"></td>
+            <td th:text="${item.numeroAtencion}"></td>
+            <td th:text="${item.tipoVuelo}"></td>
             <td>
-                <a th:href="@{/aerolineas/details/{id} (id = ${item.id}) }" class="btn btn-outline-secondary">Detalles</a>
-                <a th:href="@{/aerolineas/edit/{id} (id = ${item.id} )" class="btn btn-outline-info">Editar</a>
-                <a th:href="@{/aerolineas/delete/{id} (id = ${item.id}) " class="btn btn-outline-danger">Eliminar</a>
+                <a th:href="@{/aerolineas/details/{id}(id=${item.id})}" class="btn btn-outline-secondary">Detalles</a>
+                <a th:href="@{/aerolineas/edit/{id}(id=${item.id})}" class="btn btn-outline-info">Editar</a>
+                <a th:href="@{/aerolineas/remove/{id}(id=${item.id})}" class="btn btn-outline-danger">Eliminar</a>
             </td>
         </tr>
         </tbody>
@@ -58,8 +61,9 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item" th:each="numeroPaginas : ${numeroPagina}">
-                <a class="page-link" th:text="${numeroPaginas}" th:href="@|/aerolineas?page=${numeroPagina} | }"></a>
+                <a class="page-link" th:text="${numeroPaginas}" th:href="@{|/aerolineas?page=${numeroPaginas}|}"></a>
             </li>
         </ul>
     </nav>
 </div>
+</html>

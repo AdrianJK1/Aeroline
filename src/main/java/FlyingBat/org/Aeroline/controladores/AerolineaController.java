@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation .BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,9 +16,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
 @Controller
+
 @RequestMapping("/aerolineas")
 public class AerolineaController {
+
     @Autowired
     private IAerolineaService aerolineaService;
 
@@ -41,13 +44,15 @@ public class AerolineaController {
         }
         return "aerolinea/index";
     }
-    //mostrar el formulario de crear
+    //mostrar formulario
     @GetMapping("/create")
-    public String create (Aerolinea aerolinea){
+    public String create(Model model, Aerolinea aerolinea) {
+        model.addAttribute("aerolinea", aerolinea);
         return "aerolinea/create";
     }
 
-    @PostMapping("save")
+
+    @PostMapping("/save")
     public String save (Model model, Aerolinea aerolinea, BindingResult result, RedirectAttributes attributes){
         if (result.hasErrors()){
             model.addAttribute(aerolinea);
@@ -57,7 +62,7 @@ public class AerolineaController {
 
         aerolineaService.creoOEditar(aerolinea);
         attributes.addFlashAttribute("msg", "Aerolinea creada exitosamente");
-        return "redirect:/create";
+        return "redirect:/aerolineas";
     }
 
     @GetMapping("/details/{id}")
@@ -68,16 +73,18 @@ public class AerolineaController {
     }
 
     @GetMapping("/edit/{id}")
-    public String details (@PathVariable("id") Integer id, Model model){
+    public String edit (@PathVariable("id") Integer id, Model model, RedirectAttributes attributes){
         Aerolinea aerolinea = aerolineaService.buscarPorId(id).get();
         model.addAttribute("aerolinea", aerolinea);
+        attributes.addFlashAttribute("msg", "Aerolinea eliminado con exito");
         return "aerolinea/edit";
     }
 
     @GetMapping("/remove/{id}")
-    public String remove (@PathVariable("id") Integer id, Model model){
+    public String remove (@PathVariable("id") Integer id, Model model, RedirectAttributes attributes){
         Aerolinea aerolinea = aerolineaService.buscarPorId(id).get();
         model.addAttribute("aerolinea", aerolinea);
+        attributes.addFlashAttribute("msg", "Aerolinea eliminada con exito");
         return "aerolinea/delete";
 
     }

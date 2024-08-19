@@ -4,7 +4,7 @@
 
 <div layout:fragment="content">
     <form th:action="@{/aerolineas/save}" th:object="${aerolinea}" method="post">
-       <input type="hidden" th:filed="*{id}">
+       <input type="hidden" th:field="*{id}">
        <h1>Editar aerolinea</h1>
         <div class="row">
             <div class="col-md-6">
@@ -19,7 +19,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="codigo">Codigo AITA</label>
-                    <input type="text" class="form-control" id="codigo" th:field="*{codigoAita}" placeholder="Codigo AITA">
+                    <input type="text" class="form-control" id="codigo" th:field="*{codigoIata}" placeholder="Codigo AITA">
                 </div>
             </div>
         </div>
@@ -27,8 +27,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="telefono">Atencion al cliente</label>
-                    <input type="text" class="form-control" id="telefono" th:filed="*{numeroAtencion}" placeholder="Numero de atencion al cliente">
+                    <label for="numeroAtencion">Atencion al cliente</label>
+                    <input type="text" class="form-control" id="numeroAtencion" th:field="*{numeroAtencion}" placeholder="Numero de atencion al cliente">
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="tipoVuelo">Tipo de vuelo</label>
-                    <input type="text" class="form-control" id="tipoVuelo" th:filed="*{tipoVuelo}" placeholder="Tipo de vuelos">
+                    <input type="text" class="form-control" id="tipoVuelo" th:field="*{tipoVuelo}" placeholder="Tipo de vuelos">
                 </div>
             </div>
         </div>
