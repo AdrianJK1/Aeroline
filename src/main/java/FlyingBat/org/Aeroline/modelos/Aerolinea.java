@@ -35,4 +35,7 @@ public class Aerolinea {
     @OneToMany(mappedBy = "aerolinea")
     private List<Vuelo> vuelos;
 
+
+
+
 }

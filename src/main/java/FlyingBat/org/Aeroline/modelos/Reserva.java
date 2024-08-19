@@ -34,4 +34,5 @@ public class Reserva {
     private String status;  //Activo o inactivo en compras (reserva u compra)
 
     private String boletoElectronico;
+
 }

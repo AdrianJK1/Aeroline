@@ -16,7 +16,6 @@ public class AerolineaService implements IAerolineaService {
 
     @Autowired
     private IAerolineaRepository aerolineaService;
-
     @Override
     public Page<Aerolinea> buscarTodosPaginados(Pageable pageable) {
         return aerolineaService.findAll(pageable);

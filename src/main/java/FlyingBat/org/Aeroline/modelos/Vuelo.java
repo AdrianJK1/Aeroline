@@ -34,4 +34,8 @@ public class Vuelo {
     @ManyToOne
     @JoinColumn(name = "aerolinea_id")
     private Aerolinea aerolinea;
+
+
+
 }
+
