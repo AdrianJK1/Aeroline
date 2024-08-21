@@ -1,0 +1,62 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+<div layout:fragment="content" class="container mt-5">
+  <h1 class="text-center mb-4">Crear Nueva Aerolínea</h1>
+  <form th:action="@{/aerolineas/save}" th:object="${aerolinea}" method="post">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nombre">Nombre de Aerolínea</label>
+          <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Escriba el nombre de la aerolínea">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="codigo">Código IATA</label>
+          <input type="text" class="form-control" id="codigo" th:field="*{codigoIata}" placeholder="Código IATA">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="telefono">Atención al Cliente</label>
+          <input type="text" class="form-control" id="telefono" th:field="*{numeroAtencion}" placeholder="Número de atención al cliente">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Tipo de Vuelo</label><br>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="comercial" name="tipoVuelo" value="Clase Comercial" th:field="*{tipoVuelo}">
+            <label class="form-check-label" for="comercial">Clase Comercial</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="privado" name="tipoVuelo" value="Clase Carga" th:field="*{tipoVuelo}">
+            <label class="form-check-label" for="privado">Clase Carga</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="carga" name="tipoVuelo" value="Clase Carga" th:field="*{tipoVuelo}">
+            <label class="form-check-label" for="carga">Clase Carga</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a th:href="@{/aerolineas}" class="btn btn-outline-secondary ml-2">Regresar</a>
+  </form>
+</div>
+</body>
+</html>
