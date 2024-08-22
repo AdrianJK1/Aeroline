@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,13 +18,15 @@ import javax.sql.DataSource;
 public class WebSecurityConfig {
 
     @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public UserDetailsManager customUsers(DataSource dataSource) {
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
 
-        // Consulta para obtener el usuario por email
         users.setUsersByUsernameQuery("select email as username, password, true from usuarios where email = ?");
-
-        // Consulta para obtener los roles asociados al usuario
         users.setAuthoritiesByUsernameQuery("select u.email, r.nombre from usuarios u " +
                 "inner join roles r on r.id = u.rol_id " +
                 "where u.email = ?");
@@ -31,15 +35,12 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                // aperturar el acceso a los recursos estáticos
-                .requestMatchers("/assets/**", "/css/**", "/js/**").permitAll()
-                // las vistas públicas no requieren autenticación
-                .requestMatchers("/", "/privacy", "/terms").permitAll()
-                // todas las demás vistas requieren autenticación
-                .anyRequest().authenticated());
-        http.formLogin(form -> form.permitAll());
+                        .requestMatchers("/assets/**", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/privacy", "/terms").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(form -> form.permitAll());
 
         return http.build();
     }

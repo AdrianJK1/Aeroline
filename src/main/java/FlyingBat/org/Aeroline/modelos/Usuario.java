@@ -29,6 +29,9 @@ public class Usuario {
     @NotBlank(message = "La contraseña es requerida")
     private String password;
 
+    @Transient // Sirve para capturar el rol en el formulario ...
+    private Integer rolId;
+
     @ManyToOne
     @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
