@@ -3,13 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<head>
-    <!-- Incluye el CSS de SweetAlert2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-</head>
-
 <body>
 <div layout:fragment="content" class="container mt-5">
+    <h1 class="text-center mb-4">Listado de Reservas</h1>
 
     <!-- Mostrar mensaje de confirmación exitoso -->
     <div th:if="${msg != null}">
@@ -35,33 +31,29 @@
         </script>
     </div>
 
-    <h1 class="text-center mb-4">Listado de Reservas</h1>
-
-    <!-- Enlace para crear nueva aerolínea -->
-    <a th:href="@{/aerolineas/create}" class="btn btn-outline-primary mb-3">Crear nueva reserva</a>
+    <!-- Enlace para crear nueva reserva -->
+    <a th:href="@{/reservas/create}" class="btn btn-outline-primary mb-3">Crear nueva reserva</a>
 
     <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Usuario</th>
-            <th>Numero de Vuelo</th>
             <th>Fecha de Reserva</th>
-            <th>Estado del voleto</th>
+            <th>Status</th>
+            <th>Boleto Electrónico</th>
             <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${reservas}">
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.nombre}"></td>
-            <td th:text="${item.codigoIata}"></td>
-            <td th:text="${item.numeroAtencion}"></td>
-            <td th:text="${item.tipoVuelo}"></td>
+        <tr th:each="reserva : ${reservas.content}">
+            <td th:text="${reserva.id}"></td>
+            <td th:text="${reserva.fechaReserva}"></td>
+            <td th:text="${reserva.status}"></td>
+            <td th:text="${reserva.boletoElectronico}"></td>
             <td>
-                <a th:href="@{/reservas/details/{id}(id=${item.id})}" class="btn btn-outline-secondary btn-sm">Detalles</a>
-                <a th:href="@{/reservas/edit/{id}(id=${item.id})}" class="btn btn-outline-info btn-sm">Editar</a>
-                <a th:href="@{/reservas/remove/{id}(id=${item.id})}" class="btn btn-outline-danger btn-sm">Eliminar</a>
+                <a th:href="@{/reservas/details/{id}(id=${reserva.id})}" class="btn btn-outline-secondary btn-sm">Detalles</a>
+                <a th:href="@{/reservas/edit/{id}(id=${reserva.id})}" class="btn btn-outline-info btn-sm">Editar</a>
+                <a th:href="@{/reservas/remove/{id}(id=${reserva.id})}" class="btn btn-outline-danger btn-sm">Eliminar</a>
             </td>
         </tr>
         </tbody>
@@ -70,13 +62,12 @@
     <!-- Paginación -->
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
-            <li class="page-item" th:each="numeroPaginas : ${numeroPagina}">
-                <a class="page-link" th:text="${numeroPaginas}" th:href="@{|/aerolineas?page=${numeroPaginas}|}"></a>
+            <li class="page-item" th:each="numeroPaginas : ${numeropagina}">
+                <a class="page-link" th:text="${numeroPaginas}" th:href="@{|/reservas?page=${numeroPaginas}|}"></a>
             </li>
         </ul>
     </nav>
 
 </div>
 </body>
-
 </html>

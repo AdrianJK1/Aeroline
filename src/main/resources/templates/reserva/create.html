@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+<div layout:fragment="content" class="container mt-5">
+    <h1 class="text-center mb-4">Crear Nueva Reserva</h1>
+    <form th:action="@{/reservas/save}" th:object="${reserva}" method="post">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fechaReserva">Fecha de Reserva</label>
+                    <input type="date" class="form-control" id="fechaReserva" th:field="*{fechaReserva}" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status" th:field="*{status}">
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="boletoElectronico">Boleto Electrónico</label>
+                    <input type="text" class="form-control" id="boletoElectronico" th:field="*{boletoElectronico}" placeholder="Número de boleto electrónico">
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/reservas}" class="btn btn-outline-secondary ml-2">Regresar</a>
+    </form>
+</div>
+</body>
+</html>

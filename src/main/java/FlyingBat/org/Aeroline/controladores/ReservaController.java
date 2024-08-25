@@ -65,7 +65,7 @@ private IReservaService reservaService;
 
         reservaService.crearOEditar(reserva);
         attributes.addFlashAttribute("msg" ,"reserva se creo ");
-        return "redirect :/ reserva";
+        return "redirect :/ reservas";
     }
 
     @GetMapping("/details/{id}")
@@ -74,7 +74,7 @@ private IReservaService reservaService;
         model.addAttribute("reserva", reserva);
         return "reserva/details";
     }
-    @GetMapping ("/edit /{edit}")
+    @GetMapping ("/edit/{edit}")
     public String edit (@PathVariable("id") Integer id , Model model, RedirectAttributes attributes){
         Reserva reserva = reservaService.buscarPorId(id).get();
         model.addAttribute("reserva", reserva);
@@ -82,7 +82,7 @@ private IReservaService reservaService;
         return "reserva/edit";
 
     }
-    @GetMapping ("/ remove{id}")
+    @GetMapping ("/remove{id}")
     public String remove (@PathVariable ("id") Integer id , Model model , RedirectAttributes attributes){
         Reserva reserva = reservaService.buscarPorId(id).get();
         model.addAttribute("reserva" , reserva);
@@ -95,7 +95,7 @@ private IReservaService reservaService;
     public String delete (Model model, Reserva reserva ,RedirectAttributes attributes){
         reservaService.elimimarPorid(reserva.getId());
         attributes.addFlashAttribute(" mss" , " Reserva eliminada con exito");
-        return "redirect:/ reserva";
+        return "redirect:/ reservas";
     }
 
 
