@@ -21,7 +21,7 @@ import java.util.stream.IntStream;
 
 
 @Controller
-@RequestMapping ("/Reservas")
+@RequestMapping ("/reservas")
 public class ReservaController {
 @Autowired
 private IReservaService reservaService;
@@ -47,7 +47,7 @@ private IReservaService reservaService;
 
 
     }
-    @GetMapping ("/Create")
+    @GetMapping ("/create")
     public String create(Model model, Reserva resereva){
         model.addAttribute("reserva", resereva);
         return "reserva/create";

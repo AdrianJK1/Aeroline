@@ -37,10 +37,15 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
+                //apertura a los recursos estaticos
                         .requestMatchers("/assets/**", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/", "/privacy", "/terms").permitAll()
+                //
+                        .requestMatchers("/", "/privacy", "/registro").permitAll()
+                        // Asignar permisos a URLs por ROLES
+                        .requestMatchers("/aerolinea/**").hasAnyAuthority("aerolinea")
                         .anyRequest().authenticated())
-                .formLogin(form -> form.permitAll());
+                .formLogin(form -> form.permitAll()
+                );
 
         return http.build();
     }
