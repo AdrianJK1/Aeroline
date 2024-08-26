@@ -35,4 +35,6 @@ public class Reserva {
 
     private String boletoElectronico;
 
+
+
 }

@@ -20,6 +20,11 @@ public class UsuarioService  implements IUsuarioService {
     private IUsuarioRepository usuarioRepository;
 
     @Override
+    public Usuario obtenerId(Integer id) {
+        return usuarioRepository.findById(id).get();
+    }
+
+    @Override
     public Usuario guardarUsuario(Usuario usuario) {
         String encodedPassword = passwordEncoder.encode(usuario.getPassword());
         usuario.setPassword(encodedPassword);
@@ -35,4 +40,5 @@ public class UsuarioService  implements IUsuarioService {
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
     }
+
 }

@@ -5,8 +5,20 @@
 
 <body>
 <div layout:fragment="content" class="container mt-5">
-    <h1 class="text-center mb-4">Crear Nueva Reserva</h1>
+    <h1 class="text-center mb-4">Nueva Reserva</h1>
     <form th:action="@{/reservas/save}" th:object="${reserva}" method="post">
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="usuario">Usuario:</label>
+                    <select id="usuario" name="usuarioId" class="form-control" required>
+                        <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-6">
@@ -20,10 +32,10 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="status">Status</label>
+                    <label for="status">Estado de compra</label>
                     <select class="form-control" id="status" th:field="*{status}">
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
+                        <option value="Reservado">Reservado</option>
+                        <option value="Comprado">Comprado</option>
                     </select>
                 </div>
             </div>
@@ -32,8 +44,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="boletoElectronico">Boleto Electrónico</label>
-                    <input type="text" class="form-control" id="boletoElectronico" th:field="*{boletoElectronico}" placeholder="Número de boleto electrónico">
+                    <label for="status">Generar Boleto electronico</label>
+                    <select class="form-control" id="boletoElectronico" th:field="*{boletoElectronico}">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
                 </div>
             </div>
         </div>

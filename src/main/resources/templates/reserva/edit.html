@@ -10,6 +10,22 @@
         <!-- Campo oculto para ID -->
         <input type="hidden" th:field="*{id}">
 
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="usuario">Usuario:</label>
+                    <select id="usuario" name="usuarioId" class="form-control" required>
+                        <option th:each="usuario : ${usuarios}"
+                                th:value="${usuario.id}"
+                                th:text="${usuario.nombre}"
+                                th:selected="${usuario.id} == ${reserva.usuario.id}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -22,10 +38,10 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="status">Status</label>
+                    <label for="status">Estado de Reserva</label>
                     <select class="form-control" id="status" th:field="*{status}">
-                        <option value="Activo" th:selected="${reserva.status == 'Activo'}">Activo</option>
-                        <option value="Inactivo" th:selected="${reserva.status == 'Inactivo'}">Inactivo</option>
+                        <option value="Reservado" th:selected="${reserva.status == 'Reservado'}">Reservado</option>
+                        <option value="Comprado" th:selected="${reserva.status == 'Comprado'}">Comprado</option>
                     </select>
                 </div>
             </div>
@@ -34,8 +50,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="boletoElectronico">Boleto Electrónico</label>
-                    <input type="text" class="form-control" id="boletoElectronico" th:field="*{boletoElectronico}" placeholder="Número de boleto electrónico">
+                    <label for="status">Generar Boleto electronico</label>
+                    <select class="form-control" id="boletoElectronico" th:field="*{boletoElectronico}">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IUsuarioService {
+    Usuario obtenerId(Integer id);
     Usuario guardarUsuario(Usuario usuario);
     Optional<Usuario> obtenerUsuarioPorEmail(String email);
     List<Usuario> listarUsuarios();

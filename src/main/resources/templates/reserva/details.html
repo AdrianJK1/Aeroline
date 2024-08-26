@@ -13,17 +13,17 @@
                 <dt class="col-sm-3">ID</dt>
                 <dd class="col-sm-9" th:text="${reserva.id}"></dd>
 
+                <dt class="col-sm-3">Cliente</dt>
+                <dd class="col-sm-9" th:text="${reserva.usuario.nombre}"></dd>
+
                 <dt class="col-sm-3">Fecha de Reserva</dt>
-                <dd class="col-sm-9" th:text="${reserva.fecha}"></dd>
+                <dd class="col-sm-9" th:text="${reserva.fechaReserva}"></dd>
+
+                <dt class="col-sm-3">Generar Boleto</dt>
+                <dd class="col-sm-9" th:text="${reserva.boletoElectronico}"></dd>
 
                 <dt class="col-sm-3">Estado</dt>
-                <dd class="col-sm-9" th:text="${reserva.estado}"></dd>
-
-                <dt class="col-sm-3">Cliente</dt>
-                <dd class="col-sm-9" th:text="${reserva.cliente.nombre}"></dd>
-
-                <dt class="col-sm-3">Vuelo</dt>
-                <dd class="col-sm-9" th:text="${reserva.vuelo.codigo}"></dd>
+                <dd class="col-sm-9" th:text="${reserva.status}"></dd>
             </dl>
 
             <div class="mt-4">
