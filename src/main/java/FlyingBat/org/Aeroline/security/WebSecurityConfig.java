@@ -1,6 +1,5 @@
 package FlyingBat.org.Aeroline.security;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,13 +36,16 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                //apertura a los recursos estaticos
+                        // Permitir acceso a recursos estáticos
                         .requestMatchers("/assets/**", "/css/**", "/js/**").permitAll()
-                //
+                        // Permitir acceso a ciertas URLs
                         .requestMatchers("/", "/privacy", "/registro").permitAll()
+                        // Permitir acceso a la ruta de descarga del PDF
+                        .requestMatchers("/downloadPdf/**").permitAll()
                         // Asignar permisos a URLs por ROLES
                         .requestMatchers("/aerolinea/**").hasAnyAuthority("aerolinea")
-                        .anyRequest().authenticated())
+                        .anyRequest().authenticated()
+                )
                 .formLogin(form -> form.permitAll()
                 );
 

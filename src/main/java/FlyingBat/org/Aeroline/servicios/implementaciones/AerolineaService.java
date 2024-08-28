@@ -40,4 +40,15 @@ public class AerolineaService implements IAerolineaService {
     public void eliminarPorId(Integer id) {
         aerolineaService.deleteById(id);
     }
+
+    @Override
+    public Aerolinea findByName(String nombre){
+        return aerolineaService.findByNombre(nombre);
+    }
+
+    @Override
+    public Aerolinea findByTipoVuelo(String vuelo){
+        return aerolineaService.findByTipoVuelo(vuelo);
+    }
+
 }

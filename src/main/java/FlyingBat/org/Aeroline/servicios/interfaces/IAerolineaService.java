@@ -17,4 +17,8 @@ public interface IAerolineaService {
     Aerolinea creoOEditar(Aerolinea aerolinea);
 
     void eliminarPorId(Integer id);
+
+    Aerolinea findByName(String nombre);
+
+    Aerolinea findByTipoVuelo(String vuelo);
 }

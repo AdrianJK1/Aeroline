@@ -7,8 +7,6 @@
 <div layout:fragment="content" class="container mt-5">
     <h1 class="text-center mb-4">Nueva Reserva</h1>
     <form th:action="@{/reservas/save}" th:object="${reserva}" method="post">
-
-
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -41,14 +39,12 @@
             </div>
         </div>
 
+        <!-- Nueva fila para el checkbox de generar PDF -->
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <label for="status">Generar Boleto electronico</label>
-                    <select class="form-control" id="boletoElectronico" th:field="*{boletoElectronico}">
-                        <option value="Si">Si</option>
-                        <option value="No">No</option>
-                    </select>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="generarPdf" name="generarPdf" value="true">
+                    <label class="form-check-label" for="generarPdf">Generar PDF de la reserva</label>
                 </div>
             </div>
         </div>
