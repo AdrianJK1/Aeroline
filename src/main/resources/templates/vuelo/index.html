@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Incluye el CSS de SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body>
+<div layout:fragment="content" class="container mt-5">
+
+    <!-- Mostrar mensaje de confirmación exitoso -->
+    <div th:if="${msg != null}">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                title: "Confirmación",
+                text: '[[${msg}]]',
+                icon: "success"
+            });
+        </script>
+    </div>
+
+    <!-- Mostrar mensaje de error si es necesario -->
+    <div th:if="${error != null}">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                title: "Error",
+                text: '[[${error}]]',
+                icon: "error"
+            });
+        </script>
+    </div>
+
+    <h1 class="text-center mb-4">Lista de vuelos</h1>
+
+    <!-- Enlace para crear nueva aerolínea -->
+    <a th:href="@{/vuelos/create}" class="btn btn-outline-primary mb-3">Crear un nuevo vuelo</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Origen</th>
+            <th> destino</th>
+            <th>fecha de hora salida</th>
+            <th>fecha de llegada</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${vuelo}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.origen}"></td>
+            <td th:text="${item.destino}"></td>
+            <td th:text="${item.fechaHorasalida}"></td>
+            <td th:text="${item.fechaHorallegada}"></td>
+            <td>
+                <a th:href="@{/vuelos/details/{id}(id=${item.id})}" class="btn btn-outline-secondary btn-sm">Detalles</a>
+                <a th:href="@{/vuelos/edit/{id}(id=${item.id})}" class="btn btn-outline-info btn-sm">Editar</a>
+                <a th:href="@{/vuelos/remove/{id}(id=${item.id})}" class="btn btn-outline-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:each="numeroPaginas : ${numberPage}">
+                <a class="page-link" th:text="${numberPage}" th:href="@{|/vuelos?page=${numberPage}|}"></a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+</body>
+
+</html>
