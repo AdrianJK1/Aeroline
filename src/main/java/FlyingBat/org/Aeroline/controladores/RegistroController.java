@@ -6,7 +6,7 @@ import FlyingBat.org.Aeroline.servicios.implementaciones.RolService;
 import FlyingBat.org.Aeroline.servicios.implementaciones.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,10 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.swing.text.PasswordView;
 import java.util.Optional;
 
 @Controller
 public class RegistroController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UsuarioService usuarioService;
@@ -55,8 +59,6 @@ public class RegistroController {
         // Asignar el rol al usuario
         usuario.setRol(rolOptional.get());
 
-        // Encriptar la contraseña antes de guardarla
-        usuario.setPassword(new BCryptPasswordEncoder().encode(usuario.getPassword()));
 
         // Guardar el usuario en la base de datos
         usuarioService.guardarUsuario(usuario);
