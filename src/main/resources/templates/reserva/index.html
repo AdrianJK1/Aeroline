@@ -41,7 +41,6 @@
             <th>Usuario</th>
             <th>Fecha de Reserva</th>
             <th>Estado de Compra</th>
-            <th>Boleto Electrónico</th>
             <th>Acciones</th>
         </tr>
         </thead>
@@ -51,7 +50,6 @@
             <td th:text="${reserva.usuario.nombre}"></td>
             <td th:text="${reserva.fechaReserva}"></td>
             <td th:text="${reserva.status}"></td>
-            <td th:text="${reserva.boletoElectronico}"></td>
             <td>
                 <a th:href="@{/reservas/details/{id}(id=${reserva.id})}" class="btn btn-outline-secondary btn-sm">Detalles</a>
                 <a th:href="@{/reservas/edit/{id}(id=${reserva.id})}" class="btn btn-outline-info btn-sm">Editar</a>

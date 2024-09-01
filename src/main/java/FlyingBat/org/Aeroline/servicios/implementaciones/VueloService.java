@@ -19,6 +19,11 @@ public class VueloService implements IVueloService {
     private IVueloRepository vueloRepository;
 
     @Override
+    public List<Vuelo> listarVuelos() {
+        return vueloRepository.findAll();
+    }
+
+    @Override
     public Page<Vuelo> obtenerTodosPaginados(Pageable pageable) {
         return vueloRepository.findAll(pageable);
     }

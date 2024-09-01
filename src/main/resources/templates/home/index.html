@@ -1,10 +1,24 @@
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layouts/_mainLayout">
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <div layout:fragment="content">
+    <div class="container mt-5">
+        <h3 class="text-center">Debes Iniciar Sesión para acceder al sistema</h3>
+        <br>
 
-    <h1 class="text-center">Bienvenidos¡¡</h1>
+        <!-- Botón para iniciar sesión -->
+        <div class="text-center">
+            <a class="btn btn-primary" th:href="@{/login}">Click AQUÍ para Iniciar Sesión</a>
+        </div>
+        <hr>
+
+        <!-- Botón para registrarse -->
+        <div class="text-center">
+            <a class="btn btn-secondary" th:href="@{/registro}">O Click AQUÍ para registrarse</a>
+        </div>
+    </div>
+
 
 </div>
 

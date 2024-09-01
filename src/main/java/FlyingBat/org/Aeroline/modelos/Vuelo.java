@@ -1,7 +1,8 @@
 package FlyingBat.org.Aeroline.modelos;
 
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,11 +26,9 @@ public class Vuelo {
     @NotBlank(message = "Destido de vuelo requerido")
     private String destino;
 
-    @NotBlank(message = "Fecha/hora salida requerida")
-    private String fechaHorasalida;
+    private LocalDateTime fechaHorasalida;
 
-    @NotBlank(message = "Fecha/hora llegada requerida")
-    private String fechaHorallegada;
+    private LocalDateTime fechaHorallegada;
 
     @ManyToOne
     @JoinColumn(name = "aerolinea_id")

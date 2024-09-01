@@ -19,6 +19,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+
+
 @Controller
 @RequestMapping("/vuelos")
 public class VueloController {
@@ -34,7 +36,7 @@ public class VueloController {
         int sizePage = size.orElse(5);
         Pageable pageable = PageRequest.of(paginaPrincipal, sizePage);
         Page<Vuelo> vuelo = vueloService.obtenerTodosPaginados(pageable);
-        model.addAttribute("vuelos", vuelo);
+        model.addAttribute("vuelo", vuelo);
 
         int totalPage = vuelo.getTotalPages();
         if (totalPage>0){
@@ -48,55 +50,56 @@ public class VueloController {
     }
 
     @GetMapping("/create")
-    public String create(Model model, Vuelo vuelo){
-        model.addAttribute("vuelo", vuelo);
-        model.addAttribute("aerolinea", aerolineaService.obtenerTodos());
-
+    public String showCreateForm(Model model) {
+        model.addAttribute("vuelo", new Vuelo());
+        model.addAttribute("aerolineas", aerolineaService.obtenerTodos());
         return "vuelo/create";
-
     }
 
     @PostMapping("/save")
-    public String save (Model model, Vuelo vuelo,
-                        @RequestParam String nombre,
-                        @RequestParam Integer aerolineaId,
-                        BindingResult result,
-                        RedirectAttributes attributes){
-        Aerolinea aerolinea = aerolineaService.findByName(nombre);
-
-        if (result.hasErrors()){
-            model.addAttribute(vuelo);
-            attributes.addFlashAttribute("error","Error al crear");
+    public String save(Model model, @ModelAttribute("vuelo") Vuelo vuelo, @RequestParam("aerolineaId") Integer aerolineaId,
+                       BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            model.addAttribute("aerolineas", aerolineaService.obtenerTodos());
+            attributes.addFlashAttribute("error", "Error al crear el vuelo");
             return "vuelo/create";
         }
+
+        // Encuentra la aerolínea por ID
+        Aerolinea aerolinea = aerolineaService.buscarPorId(aerolineaId).orElse(null);
+        if (aerolinea == null) {
+            attributes.addFlashAttribute("error", "Aerolínea no encontrada");
+            return "redirect:/vuelos/create";
+        }
+
         vuelo.setAerolinea(aerolinea);
         vueloService.crearOEditar(vuelo);
-        attributes.addFlashAttribute("msg", "Creado exitosamente");
+        attributes.addFlashAttribute("msg", "Vuelo creado exitosamente");
         return "redirect:/vuelos";
     }
 
-    @GetMapping("/details({id}")
+
+    @GetMapping("/details/{id}")
     public String details(Model model, @PathVariable("id") Integer id){
-        Vuelo vuelo = vueloService.obtenerPorId(id).get();
+        Vuelo vuelo = vueloService.obtenerPorId(id).orElseThrow(() -> new NoSuchElementException("Vuelo no encontrado"));
         model.addAttribute("vuelo", vuelo);
         return "vuelo/details";
     }
 
+    // Método para mostrar el formulario de edición de un vuelo
     @GetMapping("/edit/{id}")
-    public String edit (Model model, @PathVariable("id") Integer id,RedirectAttributes attributes, @PathVariable("nombre")String nombre){
+    public String edit(Model model, @PathVariable("id") Integer id, RedirectAttributes attributes) {
         Vuelo vuelo = vueloService.obtenerPorId(id).orElse(null);
-        if (vuelo!= null){
+        if (vuelo != null) {
             model.addAttribute("vuelo", vuelo);
-            model.addAttribute("aerolinea", aerolineaService.findByName(nombre));
-            attributes.addFlashAttribute("msg", "Vuelo editado correctamente");
+            model.addAttribute("aerolineas", aerolineaService.obtenerTodos());
             return "vuelo/edit";
-        }
-        else{
+        } else {
             attributes.addFlashAttribute("msg", "Vuelo no encontrado :[");
             return "redirect:/vuelos";
         }
-
     }
+
 
     @GetMapping("/remove/{id}")
     public String remove (@PathVariable("id") Integer id, Model model, RedirectAttributes attributes){
@@ -110,11 +113,17 @@ public class VueloController {
     }
 
     @PostMapping("/delete")
-    public String delete (Vuelo vuelo, RedirectAttributes attributes){
-        vueloService.eliminarPorId(vuelo.getId());
-        attributes.addFlashAttribute("msg", "Vuelo eliminado exitosamente");
+    public String delete(@RequestParam("id") Integer id, RedirectAttributes attributes) {
+        // Verifica si el vuelo existe antes de intentar eliminarlo
+        if (vueloService.obtenerPorId(id).isPresent()) {
+            vueloService.eliminarPorId(id);
+            attributes.addFlashAttribute("msg", "Vuelo eliminado exitosamente");
+        } else {
+            attributes.addFlashAttribute("msg", "Error, vuelo no encontrado");
+        }
         return "redirect:/vuelos";
     }
+
 
 
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+<div layout:fragment="content" class="container mt-5">
+    <h1 class="text-center mb-4">Editar Vuelo</h1>
+    <form th:action="@{/vuelos/save}" th:object="${vuelo}" method="post">
+        <!-- Campo oculto para ID -->
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:name="aerolineaId" th:value="${vuelo.aerolinea.id}"/>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="origen">Origen:</label>
+                    <input type="text" class="form-control" id="origen" th:field="*{origen}" placeholder="Ingrese el origen del vuelo" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="destino">Destino:</label>
+                    <input type="text" class="form-control" id="destino" th:field="*{destino}" placeholder="Ingrese el destino del vuelo" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fechaHorasalida">Fecha y Hora de Salida:</label>
+                    <input type="datetime-local" class="form-control" id="fechaHorasalida" th:field="*{fechaHorasalida}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fechaHorallegada">Fecha y Hora de Llegada:</label>
+                    <input type="datetime-local" class="form-control" id="fechaHorallegada" th:field="*{fechaHorallegada}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="aerolinea">Aerolínea:</label>
+                    <select id="aerolinea" name="aerolineaId" class="form-control" required>
+                        <option th:each="aerolinea : ${aerolineas}"
+                                th:value="${aerolinea.id}"
+                                th:text="${aerolinea.nombre}"
+                                th:selected="${aerolinea.id == vuelo.aerolinea.id}">
+                        </option>
+                    </select>
+
+
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a th:href="@{/vuelos}" class="btn btn-outline-secondary ml-2">Regresar</a>
+    </form>
+</div>
+</body>
+</html>

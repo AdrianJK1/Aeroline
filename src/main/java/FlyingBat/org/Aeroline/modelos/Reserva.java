@@ -28,6 +28,7 @@ public class Reserva {
     @JoinColumn(name = "vuelo_id")
     private Vuelo vuelo;
 
+
     @NotBlank(message = "Fecha de reserva requerida")
     private String fechaReserva;
 

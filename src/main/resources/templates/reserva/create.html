@@ -3,14 +3,59 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<body>
+<head>
+    <style>
+        /* Estilo personalizado en tonos azules */
+        .bg-light-blue {
+            background-color: #f0f8ff; /* Fondo azul claro */
+        }
+
+        .text-primary-blue {
+            color: #007bff; /* Texto azul */
+        }
+
+        .btn-primary-blue {
+            background-color: #007bff; /* Botón azul */
+            border-color: #007bff;
+            color: #000000; /* Texto negro */
+        }
+
+        .btn-primary-blue:hover {
+            background-color: #0056b3; /* Botón azul más oscuro al pasar el ratón */
+            border-color: #0056b3;
+        }
+
+        .form-control:focus {
+            border-color: #007bff; /* Borde azul al enfocar */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        hr {
+            border-top: 1px solid #007bff; /* Línea divisoria azul */
+        }
+
+        .container {
+            background-color: #ffffff; /* Fondo blanco para el formulario */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+
+        .ml-2 {
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+
+<body class="bg-light-blue">
 <div layout:fragment="content" class="container mt-5">
-    <h1 class="text-center mb-4">Nueva Reserva</h1>
+    <h1 class="text-center mb-4 text-primary-blue">Nueva Reserva</h1>
+    <h6 class="text-center mb-4 text-primary-blue">**Al seleccionar "Generar PDF" se descargara un PDF y puede seleccionar "Regresar"**</h6>
     <form th:action="@{/reservas/save}" th:object="${reserva}" method="post">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="usuario">Usuario:</label>
+                    <label for="usuario" class="text-primary-blue">Usuario:</label>
                     <select id="usuario" name="usuarioId" class="form-control" required>
                         <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre}"></option>
                     </select>
@@ -21,7 +66,20 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="fechaReserva">Fecha de Reserva</label>
+                    <label for="vuelo" class="text-primary-blue">Vuelo:</label>
+                    <select id="vuelo" name="vueloId" class="form-control" required>
+                        <option value="" disabled selected>Seleccione un vuelo</option>
+                        <option th:each="vuelo : ${vuelos}" th:value="${vuelo.id}"
+                                th:text="${vuelo.origen} + ' - ' + ${vuelo.destino}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fechaReserva" class="text-primary-blue">Fecha de Reserva</label>
                     <input type="date" class="form-control" id="fechaReserva" th:field="*{fechaReserva}" required>
                 </div>
             </div>
@@ -30,7 +88,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="status">Estado de compra</label>
+                    <label for="status" class="text-primary-blue">Estado de compra</label>
                     <select class="form-control" id="status" th:field="*{status}">
                         <option value="Reservado">Reservado</option>
                         <option value="Comprado">Comprado</option>
@@ -39,18 +97,17 @@
             </div>
         </div>
 
-        <!-- Nueva fila para el checkbox de generar PDF -->
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="generarPdf" name="generarPdf" value="true">
-                    <label class="form-check-label" for="generarPdf">Generar PDF de la reserva</label>
+                    <label class="form-check-label text-primary-blue" for="generarPdf">Generar PDF de la reserva</label>
                 </div>
             </div>
         </div>
 
         <hr>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary-blue">Guardar</button>
         <a th:href="@{/reservas}" class="btn btn-outline-secondary ml-2">Regresar</a>
     </form>
 </div>

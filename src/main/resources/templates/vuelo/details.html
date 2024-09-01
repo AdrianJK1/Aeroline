@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+<div layout:fragment="content" class="container mt-5">
+  <h1 class="text-center mb-4">Detalles de Vuelo</h1>
+
+  <div class="card p-4">
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9" th:text="${vuelo.id}"></dd>
+
+        <dt class="col-sm-3">Origen del Vuelo</dt>
+        <dd class="col-sm-9" th:text="${vuelo.origen}"></dd>
+
+        <dt class="col-sm-3">Destino del Vuelo</dt>
+        <dd class="col-sm-9" th:text="${vuelo.destino}"></dd>
+
+        <dt class="col-sm-3">Fecha y Hora de Salida</dt>
+        <dd class="col-sm-9" th:text="${vuelo.fechaHorasalida}"></dd>
+
+        <dt class="col-sm-3">Fecha y Hora de Llegada</dt>
+        <dd class="col-sm-9" th:text="${vuelo.fechaHorallegada}"></dd>
+
+        <dt class="col-sm-3">Nombre de la Aerolinea</dt>
+        <dd class="col-sm-9" th:text="${vuelo.aerolinea.nombre}"></dd>
+
+      </dl>
+
+      <div class="mt-4">
+        <a th:href="@{/vuelos/edit/{id} (id=${vuelo.id})}" class="btn btn-outline-info">Editar</a>
+        <a th:href="@{/vuelos}" class="btn btn-outline-secondary ml-2">Regresar</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

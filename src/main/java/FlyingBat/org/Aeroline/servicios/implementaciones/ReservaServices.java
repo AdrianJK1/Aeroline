@@ -61,9 +61,7 @@ public class ReservaServices implements IReservaService {
         document.add(new Paragraph("Usuario: " + reserva.getUsuario().getNombre()));
         document.add(new Paragraph("Fecha de Reserva: " + reserva.getFechaReserva()));
         document.add(new Paragraph("Estado de Compra: " + reserva.getStatus()));
-        // Añadir más detalles según sea necesario
 
-        // Cerrar el documento
         document.close();
     }
 }

@@ -10,6 +10,8 @@ public interface IVueloService {
 
     Page<Vuelo> obtenerTodosPaginados (Pageable pageable);
 
+    List<Vuelo> listarVuelos();
+
     List<Vuelo> obtenerTodos();
 
     Optional<Vuelo> obtenerPorId (Integer id);
