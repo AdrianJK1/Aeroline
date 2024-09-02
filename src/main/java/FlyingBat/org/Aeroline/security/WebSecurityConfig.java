@@ -32,18 +32,21 @@ public class WebSecurityConfig {
 
         return users;
     }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
                         // Permitir acceso a recursos estáticos
                         .requestMatchers("/assets/**", "/css/**", "/js/**").permitAll()
                         // Permitir acceso a ciertas URLs
+
                         .requestMatchers("/", "/privacy", "/registro").permitAll()
                         // Permitir acceso a la ruta de descarga del PDF
                         .requestMatchers("/downloadPdf/**").permitAll()
-                        // Asignar permisos a URLs por ROLES
-                        .requestMatchers("/aerolinea/**").hasAnyAuthority("aerolinea")
+
+                        .requestMatchers("/reserva/**").hasAuthority("usuario")
+
+                        .requestMatchers("/aerolinea/**", "/vuelo/**").hasAuthority("aerolinea")
+                        // Cualquier otra solicitud requiere autenticación
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.permitAll()
@@ -51,4 +54,5 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
 }
