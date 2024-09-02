@@ -48,7 +48,12 @@ public class ReservaController {
         int paginaUnica = page.orElse(1) - 1;
         int sizePage = size.orElse(10);
         Pageable pageable = PageRequest.of(paginaUnica, sizePage);
+
+
         Page<Reserva> reserva = reservaService.buscarTodospaginados(pageable);
+        Page<Vuelo> vuelo = vueloService.obtenerTodosPaginados(pageable);
+
+
         model.addAttribute("reservas", reserva);
 
         int paginastotales = reserva.getTotalPages();
@@ -168,7 +173,7 @@ public class ReservaController {
                 table.addCell(new PdfPCell(new Phrase(vuelo.getOrigen() + " - " + vuelo.getDestino())));
 
                 table.addCell(new PdfPCell(new Phrase("Fecha de Reserva")));
-                table.addCell(new PdfPCell(new Phrase(reserva.getFechaReserva().toString())));
+                table.addCell(new PdfPCell(new Phrase(reserva.getFechaReserva())));
 
                 table.addCell(new PdfPCell(new Phrase("Estado de compra")));
                 PdfPCell statusCell = new PdfPCell(new Phrase(reserva.getStatus(), redFont));
@@ -190,9 +195,11 @@ public class ReservaController {
 
     @GetMapping("/details/{id}")
     public String details(Model model, @PathVariable("id") Integer id) {
+        Vuelo vuelo = vueloService.obtenerPorId(id).orElse(null);
         Reserva reserva = reservaService.buscarPorId(id).orElse(null);
         if (reserva != null) {
             model.addAttribute("reserva", reserva);
+            model.addAttribute("vuelo", vuelo);
         } else {
             model.addAttribute("msg", "Reserva no encontrada");
         }
@@ -201,6 +208,7 @@ public class ReservaController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model, RedirectAttributes attributes) {
+        Vuelo vuelo = vueloService.obtenerPorId(id).orElse(null);
         Reserva reserva = reservaService.buscarPorId(id).orElse(null);
         if (reserva == null) {
             attributes.addFlashAttribute("msg", "Reserva no encontrada");
@@ -208,6 +216,7 @@ public class ReservaController {
         }
         model.addAttribute("reserva", reserva);
         model.addAttribute("usuarios", usuarioService.listarUsuarios());
+        model.addAttribute("vuelo", vueloService.listarVuelos());
         attributes.addFlashAttribute("msg", "Reserva Editada con éxito");
         return "reserva/edit";
     }
@@ -224,7 +233,8 @@ public class ReservaController {
     }
 
     @PostMapping("/delete")
-    public String delete(Reserva reserva, RedirectAttributes attributes) {
+    public String delete(Reserva reserva, Vuelo vuelo, RedirectAttributes attributes) {
+        vueloService.eliminarPorId(vuelo.getId());
         reservaService.elimimarPorid(reserva.getId());
         attributes.addFlashAttribute("msg", "Reserva eliminada con éxito");
         return "redirect:/reservas";

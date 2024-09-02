@@ -39,6 +39,7 @@
         <tr>
             <th>ID</th>
             <th>Usuario</th>
+            <th>Origen</th>
             <th>Fecha de Reserva</th>
             <th>Estado de Compra</th>
             <th>Acciones</th>
@@ -48,6 +49,7 @@
         <tr th:each="reserva : ${reservas.content}">
             <td th:text="${reserva.id}"></td>
             <td th:text="${reserva.usuario.nombre}"></td>
+            <td th:text="${reserva.vuelo.origen}"></td>
             <td th:text="${reserva.fechaReserva}"></td>
             <td th:text="${reserva.status}"></td>
             <td>
