@@ -8,14 +8,10 @@
   <h1 class="text-danger">Eliminar Reserva</h1>
   <hr>
 
+  <!-- Detalles de la reserva -->
   <dl class="row">
     <dt class="col-sm-3">ID</dt>
     <dd class="col-sm-9" th:text="${reserva.id}"></dd>
-
-
-    <dt class="col-sm-3">Fecha de Reserva</dt>
-    <dd class="col-sm-9" th:text="${reserva.fechaReserva}"></dd>
-
 
     <dt class="col-sm-3">Fecha de Reserva</dt>
     <dd class="col-sm-9" th:text="${reserva.fechaReserva}"></dd>
@@ -23,14 +19,24 @@
     <dt class="col-sm-3">Estado de Reserva</dt>
     <dd class="col-sm-9" th:text="${reserva.status}"></dd>
 
-    <dt class="col-sm-3">Boleto Electrónico</dt>
-    <dd class="col-sm-9" th:text="${reserva.boletoElectronico}"></dd>
+    <dt class="col-sm-3">Origen</dt>
+    <dd class="col-sm-9" th:text="${reserva.vuelo.origen}"></dd>
+
+    <dt class="col-sm-3">Destino</dt>
+    <dd class="col-sm-9" th:text="${reserva.vuelo.destino}"></dd>
+
+    <dt class="col-sm-3">Fecha de Salida</dt>
+    <dd class="col-sm-9" th:text="${reserva.vuelo.fechaHorasalida}"></dd>
+
+    <dt class="col-sm-3">Fecha de Llegada</dt>
+    <dd class="col-sm-9" th:text="${reserva.vuelo.fechaHorallegada}"></dd>
   </dl>
 
+  <!-- Formulario de confirmación de eliminación -->
   <form th:action="@{/reservas/delete}" method="post" class="mt-4">
     <input type="hidden" name="id" th:value="${reserva.id}">
     <button type="submit" class="btn btn-outline-danger">Eliminar</button>
-    <a th:href="@{/reservas}" class="btn btn-outline-secondary ml-2">Regresar</a>
+    <a th:href="@{/reservas}" class="btn btn-outline-secondary ml-2">Cancelar</a>
   </form>
 </div>
 </body>

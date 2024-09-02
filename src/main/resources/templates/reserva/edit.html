@@ -10,7 +10,7 @@
         <!-- Campo oculto para ID -->
         <input type="hidden" th:field="*{id}">
 
-
+        <!-- Campo para seleccionar usuario -->
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -26,6 +26,23 @@
             </div>
         </div>
 
+        <!-- Campo para seleccionar vuelo -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="vuelo">Vuelo:</label>
+                    <select id="vuelo" name="vueloId" class="form-control" required>
+                        <option th:each="vuelo : ${vuelos}"
+                                th:value="${vuelo.id}"
+                                th:text="${vuelo.origen} + ' a ' + ${vuelo.destino}"
+                                th:selected="${vuelo.id} == ${reserva.vuelo.id}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campo para fecha de reserva -->
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -35,6 +52,7 @@
             </div>
         </div>
 
+        <!-- Campo para estado de reserva -->
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -47,12 +65,13 @@
             </div>
         </div>
 
+        <!-- Campo para boleto electrónico -->
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="status">Generar Boleto electronico</label>
+                    <label for="boletoElectronico">Generar Boleto Electrónico</label>
                     <select class="form-control" id="boletoElectronico" th:field="*{boletoElectronico}">
-                        <option value="Si">Si</option>
+                        <option value="Si">Sí</option>
                         <option value="No">No</option>
                     </select>
                 </div>

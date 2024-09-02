@@ -216,10 +216,10 @@ public class ReservaController {
         }
         model.addAttribute("reserva", reserva);
         model.addAttribute("usuarios", usuarioService.listarUsuarios());
-        model.addAttribute("vuelo", vueloService.listarVuelos());
-        attributes.addFlashAttribute("msg", "Reserva Editada con éxito");
+        model.addAttribute("vuelos", vueloService.listarVuelos());
         return "reserva/edit";
     }
+
 
     @GetMapping("/remove/{id}")
     public String remove(@PathVariable("id") Integer id, Model model, RedirectAttributes attributes) {
@@ -233,12 +233,17 @@ public class ReservaController {
     }
 
     @PostMapping("/delete")
-    public String delete(Reserva reserva, Vuelo vuelo, RedirectAttributes attributes) {
-        vueloService.eliminarPorId(vuelo.getId());
-        reservaService.elimimarPorid(reserva.getId());
-        attributes.addFlashAttribute("msg", "Reserva eliminada con éxito");
+    public String delete(@RequestParam("id") Integer reservaId, RedirectAttributes attributes) {
+        Reserva reserva = reservaService.buscarPorId(reservaId).orElse(null);
+        if (reserva != null) {
+            reservaService.elimimarPorid(reservaId);
+            attributes.addFlashAttribute("msg", "Reserva eliminada con éxito");
+        } else {
+            attributes.addFlashAttribute("msg", "Reserva no encontrada");
+        }
         return "redirect:/reservas";
     }
+
 
 
 }

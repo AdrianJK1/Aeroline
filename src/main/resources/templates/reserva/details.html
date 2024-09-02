@@ -19,11 +19,15 @@
                 <dt class="col-sm-3">Fecha de Reserva</dt>
                 <dd class="col-sm-9" th:text="${reserva.fechaReserva}"></dd>
 
-                <dt class="col-sm-3">Generar Boleto</dt>
-                <dd class="col-sm-9" th:text="${reserva.boletoElectronico}"></dd>
-
                 <dt class="col-sm-3">Estado</dt>
                 <dd class="col-sm-9" th:text="${reserva.status}"></dd>
+
+                <!-- Nueva sección para mostrar los detalles del vuelo -->
+                <dt class="col-sm-3">Origen</dt>
+                <dd class="col-sm-9" th:text="${reserva.vuelo.origen}"></dd>
+
+                <dt class="col-sm-3">Destino</dt>
+                <dd class="col-sm-9" th:text="${reserva.vuelo.destino}"></dd>
             </dl>
 
             <div class="mt-4">
